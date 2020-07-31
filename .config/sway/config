@@ -1,0 +1,241 @@
+# Read `man 5 sway` for a complete reference.
+font IBM Plex 11
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Your preferred terminal emulator
+set $term kitty
+
+# Current display outputs
+set $left_monitor DP-1
+set $right_monitor HDMI-A-2
+
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $menu "wofi -I --show drun"
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+output $left_monitor transform 270 
+output $left_monitor pos 0 0
+output $right_monitor pos 1080 500
+output $left_monitor bg $HOME/Pictures/pogo/Fall-Leaves-Wallpaper-1080x1920.jpg fill
+output $right_monitor bg $HOME/Pictures/WideHardo/yosemite-valley-evening-5k-pt-2560x1080.jpg fill
+
+# Changes the focus of monitor on sway launch
+focus output $right_monitor
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+	# focus to a different monitor
+	bindsym $mod+Left focus output left
+	bindsym $mod+Right focus output right
+
+	# move window to a different monitor
+	bindsym $mod+Shift+Left move output left
+	bindsym $mod+Shift+Right move output right
+
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+	bindsym $mod+Control+q workspace 1
+	bindsym $mod+Control+w workspace 2
+	bindsym $mod+Control+e workspace 3
+	bindsym $mod+Control+r workspace 4
+	bindsym $mod+Control+t workspace 5
+	bindsym $mod+Control+y workspace 6
+	bindsym $mod+Control+u workspace 7
+	bindsym $mod+Control+i workspace 8
+	bindsym $mod+Control+o workspace 9
+	bindsym $mod+Control+p workspace 10
+
+    # Move focused container to workspace
+	bindsym $mod+Control+Shift+q move container to workspace 1
+	bindsym $mod+Control+Shift+w move container to workspace 2
+	bindsym $mod+Control+Shift+e move container to workspace 3
+	bindsym $mod+Control+Shift+r move container to workspace 4
+	bindsym $mod+Control+Shift+t move container to workspace 5
+	bindsym $mod+Control+Shift+y move container to workspace 6
+	bindsym $mod+Control+Shift+u move container to workspace 7
+	bindsym $mod+Control+Shift+i move container to workspace 8
+	bindsym $mod+Control+Shift+o move container to workspace 9
+	bindsym $mod+Control+Shift+p move container to workspace 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+    
+	bindsym $mod+Tab workspace next
+	bindsym $mod+Shift+Tab workspace prev
+
+	# Set specific workspace to a display
+	workspace 1 output $left_monitor
+	workspace 2 output $right_monitor
+	workspace 3 output $left_monitor
+	workspace 4 output $right_monitor
+	workspace 5 output $left_monitor
+	workspace 6 output $right_monitor
+	workspace 7 output $left_monitor
+	workspace 8 output $right_monitor
+	workspace 9 output $left_monitor
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+g splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+x layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+BackSpace floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+BackSpace focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    bindsym $left resize shrink width 30px
+    bindsym $down resize grow height 30px
+    bindsym $up resize shrink height 30px
+    bindsym $right resize grow width 30px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "Move" {
+
+	bindsym h move left 25 px 
+	bindsym j move down 20 px 
+	bindsym k move up 20 px 
+	bindsym l move right 25 px 
+
+	# back to normal
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+bindsym $mod+m mode "move"
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+ 
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%- 
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle 
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl -a play-pause
+bindsym XF86AudioNext exec playerctl -a next
+bindsym XF86AudioPrev exec playerctl -a previous
+
+# Startup applications
+exec /usr/lib/geoclue-2.0/demos/agent
+exec /usr/bin/redshift -m wayland
+exec /sbin/udiskie
+exec $HOME/scripts/swaylock.sh
+
+# Window settings
+for_window [class="^.*"] border pixel 3
+for_window [app_id="feh"] floating enable
+default_border pixel 3
+smart_borders on
+title_align center
+tiling_drag enable
+
+# Window Colors
+set $bg #2b303b
+set $fg #ffffff
+set $br #6e98f2
+set $u_br #4f264a
+#												border  background	text		indicator	child_border
+client.focused          $br     $br     		$fg     $bg       $br
+client.focused_inactive $bg     $bg     		$fg     $bg       $bg
+client.unfocused        $bg     $bg     		$fg     $bg       $bg
+client.urgent           $u_br 	$u_br     	$fg     $bg       $br 
+#client.placeholder     $br     $br     		$fg     $bg       $br #currently not implemented
+client.background $bg
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    swaybar_command waybar
+}
+
+gaps inner 10 
+
+bindsym $mod+z			gaps outer current plus 5
+bindsym $mod+Shift+z	gaps outer current minus 5
+include /etc/sway/config.d/*

@@ -10,7 +10,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 " Linting
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 Plugin 'junegunn/fzf.vim'
 " Cool status line 
 Plugin 'itchyny/lightline.vim'
@@ -22,7 +22,12 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-surround'
 " HTML Plugins
 Plugin 'mattn/emmet-vim'
+" Highlights the respective
+" opening tag with its
+" closing tag
 Plugin 'gregsexton/MatchTag'
+" Automatic closing of quotes, 
+" paranthesis, brackets, etc
 Plugin 'Raimondi/delimitMate'
 " Color highlight
 Plugin 'lilydjwg/colorizer'
@@ -32,6 +37,9 @@ Plugin 'rafi/awesome-vim-colorschemes'
 "Lens + Animate
 Plugin 'camspiers/animate.vim'
 Plugin 'camspiers/lens.vim'
+" Vertical lines for indent levels
+Plugin 'Yggdroot/indentLine'
+Plugin 'tpope/vim-commentary'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -52,19 +60,27 @@ cmap w!! w !sudo tee > /dev/null %
 " CDC = Change to Directory of Current file
 command CDC cd %:p:h
 
-" Colorscheme
-colo elflord
+if has("gui_running")
+	" Gui colorscheme
+	colo afterglow
+else 
+	" Terminal colorscheme
+	colo elflord
+endif
 
 " Line numbers
 set number
+
+" allow clipboard
+set clipboard=unnamed
 
 " Mouse emulation within vim 
 set mouse=a
 syntax enable
 
 " Tabbing options
-set shiftwidth=4 
-set tabstop=4
+set shiftwidth=2 
+set tabstop=2
 set smarttab
 
 " vim-Terminal configuration
@@ -79,13 +95,15 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 :let g:NERDTreeWinSize=25
 
-" Highlight Colors
-highlight Pmenu ctermfg=15 ctermbg=53 
-highlight PmenuSel ctermfg=7 ctermbg=54
-highlight Todo ctermfg=16 ctermbg=3
-highlight ALEWarning term=underline cterm=underline ctermfg=190 
-highlight ALEStyleWarning term=underline cterm=underline ctermfg=190 
-highlight ALEInfo term=underline cterm=underline ctermfg=190 
+" ALE Highlight config
+"highlight Pmenu ctermfg=15 ctermbg=53 
+"highlight PmenuSel ctermfg=7 ctermbg=54
+"highlight Todo ctermfg=16 ctermbg=3
+"highlight ALEWarning term=underline cterm=underline ctermfg=190 
+"highlight ALEStyleWarning term=underline cterm=underline ctermfg=190 
+"highlight ALEInfo term=underline cterm=underline ctermfg=190 
+highlight ALEError ctermbg=none cterm=underline
+highlight ALEWarning ctermbg=none cterm=underline
 
 "YCM global config
 let g:ycm_python_interpreter_path = ''
@@ -96,6 +114,7 @@ let g:ycm_extra_conf_vim_data = [
   \]
 let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
+set completeopt-=preview
 
 " lightline options
 set laststatus=2
@@ -114,13 +133,13 @@ let g:colorizer_maxlines = 10
 " lens settings
 
 " Resize Max height
-" let g:lens#height_resize_max = 20
+"let g:lens#height_resize_max = 50
 
 " Resize Min Height
-" let g:lens#height_resize_min = 5
+"let g:lens#height_resize_min = 25
 
 " Resize Max Width
-" let g:lens#width_resize_max = 80
+"let g:lens#width_resize_max = 50
 
 " Resize Min Width
-" let g:lens#width_resize_min = 20
+"let g:lens#width_resize_min = 20

@@ -23,7 +23,9 @@ alias xSave="xrdb .Xresources"
 alias class="xprop | grep 'CLASS'"
 alias reloadDunst='killall dunst; notify-send testing'
 # Upon closing ranger, cd to the last directory
-alias ranger='ranger --choosedir=$HOME/.rangerdir;\ 				
-			  LASTDIR=`cat $HOME/.rangerdir`;\
-			  cd "$LASTDIR"'
+#alias ranger='ranger --choosedir=$HOME/.rangerdir;\ 				
+#			  LASTDIR=`cat $HOME/.rangerdir`;\
+#			  cd "$LASTDIR"'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias shadow_beta='allow_rgb10_configs=false /opt/shadow-beta/shadow-preprod --no-sandbox &> /dev/null' 
+alias pipu='pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U '
