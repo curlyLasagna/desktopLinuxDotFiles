@@ -1,0 +1,52 @@
+[section/base]
+; Include files
+include-file = $HOME/.config/polybar/colors.ini
+include-file = $HOME/.config/polybar/modules.ini
+
+[bar/topBar]
+width = 100%
+height = 30
+fixed-center = true
+bottom = false
+
+border-left-size = 4
+border-left-color = ${colors.side-border}
+
+border-right-size = 4
+border-right-color = ${colors.side-border}
+
+border-bottom-size = 2
+border-bottom-color = ${colors.bottom-border}
+
+; Colors 
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; Number of spaces to add at the beginning/end of the bar
+; Individual side values can be defined using: 
+; 	padding-{left,right}
+padding-left = 3
+padding-right = 3
+
+; Number of spaces to add before/after each module
+; Individual side values can be defined using:
+;   module-margin-{left,right}
+module-margin-left = 2
+module-margin-right = 2
+
+; Fonts/Icons
+font-0 = Ubuntu Nerd Font:pixelsize=12;2
+font-1 = icomoon:pixelsize=11;3
+font-2 = FontAwesome:size=12:;1
+
+; Modules location
+modules-left = xworkspaces memory temperature
+modules-center = date 
+modules-right = eth pulseaudio 
+
+; Tray settings
+tray-maxsize = 16
+tray-position = right
+tray-padding = 2
+
+screenchange-reload = true
