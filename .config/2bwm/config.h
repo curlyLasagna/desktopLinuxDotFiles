@@ -1,1 +1,0 @@
-/home/luis/.local/src/2bwm/config.h
