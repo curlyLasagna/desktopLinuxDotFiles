@@ -203,11 +203,19 @@ bindsym XF86AudioPrev exec playerctl -a previous
 exec /usr/lib/geoclue-2.0/demos/agent
 exec /usr/bin/redshift -m wayland
 exec /sbin/udiskie
+# swayidle lock screen
 exec $HOME/scripts/swaylock.sh
+
+# Lock screen
+bindsym $mod+Control+l exec swaylock -f -c 000000 -i $HOME/Pictures/WideHardo/landscape.png
 
 # Window settings
 for_window [class="^.*"] border pixel 3
-for_window [app_id="feh"] floating enable
+for_window [class="feh"] floating enable
+for_window [class="vlc"] floating enable
+for_window [class="mpv"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [title="Task Manager - Chromium"] floating enable
 default_border pixel 3
 smart_borders on
 title_align center

@@ -16,9 +16,9 @@
 
 # Note that rtv returns a list of urls for imgur albums, so we don't put quotes
 # around the `%s`
-image/x-imgur-album; feh -g 800x600 -Z -. %s; test=test -n "$DISPLAY"
+image/x-imgur-album; curl %s | imv -; test=test -n "$DISPLAY"
 image/gif; mpv '%s' --loop=inf; test=test -n "$DISPLAY"
-image/*; feh -g 800x600 -Z -. '%s'; test=test -n "$DISPLAY"
+image/*; curl '%s' | imv -; test=test -n "$DISPLAY"
 
 # Youtube videos are assigned a custom mime-type, which can be streamed with
 # vlc or youtube-dl.
