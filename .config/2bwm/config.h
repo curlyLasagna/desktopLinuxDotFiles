@@ -21,9 +21,9 @@ static const float    resize_keep_aspect_ratio= 1.03;
 ///---Offsets---///
 static const uint8_t offsets[] = {
 /* X offset   */	0,
-/* Y offset   */	0,
+/* Y offset   */	30,
 /* Max width  */	0,
-/* Max height */	0
+/* Max height */	30
 };
 
 ///---Colors---///
@@ -31,8 +31,8 @@ static const char *colors[] = {
 /* focused					*/ "#faebd7",
 /* unfocused				*/ "#333333",
 /* fixed						*/ "#d41243",
-/* unkillable				*/ "#ff6666",
-/* fixed unkillable */ "#ff83c3",
+/* unkillable				*/ "#e1d02d",
+/* fixed unkillable */ "#c8d3ff",
 /* outer border			*/ "#0d131a",
 /* empty						*/ "#000000"
 };
@@ -66,8 +66,11 @@ static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
 static const char *menucmd[]   = {"rofi", "-show", "drun", "-modi", "drun", NULL };
 static const char *windowcmd[] = {"rofi", "-show", "window", "-modi", "window", NULL};
-static const char *lockcmd[] 	 = {"slock", NULL};
+static const char *lockcmd[] 	 = {"slock", "systemctl", "suspend", "-i", NULL};
 static const char *terminalcmd[]  = {"kitty", NULL};
+// Terminal applications that terminates the terminal after process ends
+static const char *rangercmd[] = {"kitty", "ranger", NULL};
+static const char *gotopcmd[] = {"kitty", "gotop", NULL};
 // Volume
 static const char *volumeToggle[]   = { "amixer", "set", "Master", "toggle", NULL };
 static const char *volumeIncrease[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
@@ -79,12 +82,13 @@ static void halfandcentered(const Arg *arg) {
 	Arg arg3 = {.i=TWOBWM_TELEPORT_CENTER};
 	teleport(&arg3);
 }
+
 ///---Sloppy focus behavior---///
 /* Command to execute when switching from sloppy focus to click to focus
  * The strings "Sloppy" and "Click" will be passed as the last argument
  * If NULL this is ignored */
-static const char *sloppy_switch_cmd[] = {};
-//static const char *sloppy_switch_cmd[] = { "notify-send", "toggle sloppy", NULL };
+//static const char *sloppy_switch_cmd[] = {};
+static const char *sloppy_switch_cmd[] = { "notify-send","-i", "$HOME/Pictures/SavedPictures/Icons/pepeLaugh.png" "2bwm", "Sloppy toggled", NULL };
 static void toggle_sloppy(const Arg *arg) {
 	is_sloppy = !is_sloppy;
 	if (arg->com != NULL && LENGTH(arg->com) > 0) {
@@ -211,8 +215,10 @@ static key keys[] = {
     {  MOD |SHIFT,        XK_d,          start,             {.com = windowcmd}},
 		{	 MOD ,							XK_Return,		 start,							{.com = terminalcmd}},
 		{	 MOD ,							XK_BackSpace,	 start,							{.com = lockcmd}},
+		{	 MOD ,							XK_e,		 			 start,							{.com = rangercmd}},
+		{	 MOD ,							XK_apostrophe, start,							{.com = gotopcmd}},
 		// Volume
-		{  0 ,								XF86XK_AudioMute,		start,				{.com = volumeToggle}},
+		{  0 ,								XF86XK_AudioMute,						start,				{.com = volumeToggle}},
 		{  0 ,								XF86XK_AudioRaiseVolume,		start,				{.com = volumeIncrease}},
 		{  0 ,								XF86XK_AudioLowerVolume,		start,				{.com = volumeDecrease}},
     // Exit or restart 2bwm

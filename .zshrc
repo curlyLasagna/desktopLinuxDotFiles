@@ -111,9 +111,10 @@ else
 	print "No alias file found"
 fi
 
-export SSH_AUTH_SOCK=/run/user/1000/ssh-agent.sock
 export PATH="/home/luis/.local/bin:$PATH"
 export TERM=xterm-kitty
 export CONFIG="$HOME/.config"
-setopt autocd autopushd pushdignoredups
 stty -ixon
+autoload -Uz compinit
+compinit
+kitty + complete setup zsh | source /dev/stdin

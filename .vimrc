@@ -29,11 +29,6 @@ Plugin 'gregsexton/MatchTag'
 " Automatic closing of quotes, 
 " paranthesis, brackets, etc
 Plugin 'Raimondi/delimitMate'
-" Color highlight
-Plugin 'lilydjwg/colorizer'
-" Extra colorschemes
-Plugin 'rainglow/vim'
-Plugin 'rafi/awesome-vim-colorschemes'
 "Lens + Animate
 Plugin 'camspiers/animate.vim'
 Plugin 'camspiers/lens.vim'
@@ -95,16 +90,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 :let g:NERDTreeWinSize=25
 
-" ALE Highlight config
-"highlight Pmenu ctermfg=15 ctermbg=53 
-"highlight PmenuSel ctermfg=7 ctermbg=54
-"highlight Todo ctermfg=16 ctermbg=3
-"highlight ALEWarning term=underline cterm=underline ctermfg=190 
-"highlight ALEStyleWarning term=underline cterm=underline ctermfg=190 
-"highlight ALEInfo term=underline cterm=underline ctermfg=190 
-highlight ALEError ctermbg=none cterm=underline
-highlight ALEWarning ctermbg=none cterm=underline
-
 "YCM global config
 let g:ycm_python_interpreter_path = ''
 let g:ycm_python_sys_path = []
@@ -115,6 +100,7 @@ let g:ycm_extra_conf_vim_data = [
 let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 set completeopt-=preview
+highlight YcmErrorLine ctermfg=red term=underline
 
 " lightline options
 set laststatus=2

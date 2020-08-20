@@ -16,9 +16,9 @@
 
 # Note that rtv returns a list of urls for imgur albums, so we don't put quotes
 # around the `%s`
-image/x-imgur-album; curl %s | imv -; test=test -n "$DISPLAY"
+image/x-imgur-album; curl %s | display -resize 750x750 -; test=test -n "$DISPLAY"
 image/gif; mpv '%s' --loop=inf; test=test -n "$DISPLAY"
-image/*; curl '%s' | imv -; test=test -n "$DISPLAY"
+image/*; curl '%s' | display -resize 750x750 -; test=test -n "$DISPLAY"
 
 # Youtube videos are assigned a custom mime-type, which can be streamed with
 # vlc or youtube-dl.
@@ -39,7 +39,7 @@ video/*; mpv '%s' --loop=inf; test=test -n "$DISPLAY"
 
 # View true images in the terminal, supported by rxvt-unicode, xterm and st
 # Requires the w3m-img package
-# image/*; w3m -o 'ext_image_viewer=off' '%s'; needsterminal
+#image/*; w3m -o 'ext_image_viewer=off' '%s'; needsterminal
 
 # Don't have a solution for albums yet
 #image/x-imgur-album; echo

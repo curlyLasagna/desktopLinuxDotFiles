@@ -11,17 +11,15 @@ xset b off
 xset s off
 xset dpms 600 60 60
 
-mainWallpaper="$HOME/Pictures/WideHardo/yosemite-valley-evening-5k-pt-2560x1080.jpg"
-sideWallpaper="$HOME/Pictures/pogo/yosemite-ca-5k-1080x1920.jpg"
-
 # notification daemon
 dunst & 														
 # set xrandr 
 sleep 1 ; $HOME/.screenlayout/defaultLayout.sh
 # compositor
 picom -b
-# launch polybar
-~/scripts/polybar_launch.sh &
 # set background
-feh --bg-scale $mainWallpaper $sideWallpaper
+$HOME/scripts/setWallpaper.sh
+# launch bar
+$HOME/scripts/polybar_launch.sh & 
+
 exec 2bwm 
