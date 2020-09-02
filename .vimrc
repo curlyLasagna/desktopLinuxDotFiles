@@ -1,67 +1,94 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-" call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
 " Linting
-Plugin 'dense-analysis/ale'
-Plugin 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
+Plug 'junegunn/fzf.vim'
 " Cool status line 
-Plugin 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 " YouCompleteMe
-Plugin 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme'
 " Directory listing
-Plugin 'scrooloose/nerdtree'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-surround'
-" HTML Plugins
-Plugin 'mattn/emmet-vim'
-" Highlights the respective
-" opening tag with its
-" closing tag
-Plugin 'gregsexton/MatchTag'
-" Automatic closing of quotes, 
-" paranthesis, brackets, etc
-Plugin 'Raimondi/delimitMate'
+Plug 'scrooloose/nerdtree'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" Add, remove, or replace surrounding pairs around a word
+Plug 'tpope/vim-surround'
+" Emmet support
+Plug 'mattn/emmet-vim'
+" Opening and closing tag highlighting
+Plug 'gregsexton/MatchTag'
+" Automatic closing of quotes, paranthesis, brackets, etc
+Plug 'Raimondi/delimitMate'
 "Lens + Animate
-Plugin 'camspiers/animate.vim'
-Plugin 'camspiers/lens.vim'
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 " Vertical lines for indent levels
-Plugin 'Yggdroot/indentLine'
-Plugin 'tpope/vim-commentary'
+Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-commentary'
+" Distraction-less vim
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+" Prettier formatting
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" ctrl + / like commenting from IDE's
+Plug 'preservim/nerdcommenter'
+" Bunch of colorschemes
+Plug 'flazz/vim-colorschemes'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+call plug#end()            
 
-"Custom keymaps
-cmap w!! w !sudo tee > /dev/null %
+"*************************"
+	"Plugin configurations"
+"*************************"
 
-"Custom Commands
-" CDC = Change to Directory of Current file
-command CDC cd %:p:h
+" Autostart NerdTree when creating new file
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeWinSize=25
 
+set completeopt-=preview
+
+" lightline options
+set laststatus=2
+set noshowmode
+let g:lightline = {
+	\ 'colorscheme': 'seoul256',
+	\ }
+
+" Set indent char 
+let g:indentLine_char = '|'
+
+" Prettier leader key trigger
+nmap <Leader>py <Plug>(Prettier)
+let g:prettier#autoformat_require_pragma = 0
+
+"*************************"
+			"gvim settings"
+"*************************"
 if has("gui_running")
-	" Gui colorscheme
-	colo afterglow
+" Gui colorscheme
+	colo mountaineer
+	set guioptions -=m
+	set guioptions -=T
 else 
 	" Terminal colorscheme
-	colo elflord
+	colo woju
 endif
+
+"*************************"
+			"Custom keymaps "
+"*************************"
+cmap w!! w !sudo tee > /dev/null %
+
+"*************************"
+			"Custom Commands"
+"*************************"
+
+" CDC = Change to Directory of Current file
+command CDC cd %:p:h
+ 
+"*************************"
+	"Vim user configurations"
+"*************************"
 
 " Line numbers
 set number
@@ -77,6 +104,24 @@ syntax enable
 set shiftwidth=2 
 set tabstop=2
 set smarttab
+" Set leader key
+let mapleader=";"
+" Leader Keys	
+" Vim mappings tl;dr
+" :map - root of all recursive mapping commands
+" Map that works in all modes
+" :remap - works recursively 
+" :noremap - non-recursive
+" Normal mode mappings
+" :nmap  
+" :nnoremap
+" Visual mode
+" :vmap
+" :vnoremap
+nnoremap <leader>j :terminal <Return>
+nnoremap <leader>; <Esc>
+nnoremap <leader>w :w <Return>
+nnoremap <leader>q :q <Return>
 
 " vim-Terminal configuration
 set termwinsize=30*0
@@ -84,48 +129,9 @@ set termwinsize=30*0
 set splitbelow
 
 set encoding=utf-8
+set termguicolors
 
-" Autostart NerdTree when creating new file
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-:let g:NERDTreeWinSize=25
-
-"YCM global config
-let g:ycm_python_interpreter_path = ''
-let g:ycm_python_sys_path = []
-let g:ycm_extra_conf_vim_data = [
-  \  'g:ycm_python_interpreter_path',
-  \  'g:ycm_python_sys_path'
-  \]
-let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-set completeopt-=preview
-highlight YcmErrorLine ctermfg=red term=underline
-
-" lightline options
-set laststatus=2
-set noshowmode
-let g:lightline = {
-	\ 'colorscheme': 'seoul256',
-	\ }
-
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " .rasi syntax highlighting
 au BufNewFile,BufRead /*.rasi setf css
-
-" Colorizer startup
-let g:colorizer_startup = 1
-let g:colorizer_maxlines = 10
-
-" lens settings
-
-" Resize Max height
-"let g:lens#height_resize_max = 50
-
-" Resize Min Height
-"let g:lens#height_resize_min = 25
-
-" Resize Max Width
-"let g:lens#width_resize_max = 50
-
-" Resize Min Width
-"let g:lens#width_resize_min = 20

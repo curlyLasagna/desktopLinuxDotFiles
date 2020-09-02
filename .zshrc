@@ -1,24 +1,14 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+source /usr/share/zsh/share/antigen.zsh
+antigen use oh-my-zsh
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+antigen bundle git
+antigen bundle zsh-less-colors
+antigen bundle archlinux
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle ael-code/zsh-colored-man-pages
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="takashiyoshida"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-#ZSH_THEME_RANDOM_CANDIDATES=( 
-#	jonathan
-#	xiong-chiamiov
-#	gnzh
-#)
+antigen theme takashiyoshida
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -67,20 +57,6 @@ HIST_STAMPS="mm/dd/yyyy"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	git
-	zsh-less-colors
-	archlinux
-	lol
-)
-
-source $ZSH/oh-my-zsh.sh
-
 						# User configuration #
 						
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -102,19 +78,16 @@ export LANG=en_US.UTF-8
 
 unsetopt correct_all
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. 
 # For a full list of active aliases, run `alias`.
-if [ -f ~/.zshrc.aliases ]; then
-	source ~/.zshrc.aliases 
-else
-	print "No alias file found"
-fi
+[[ -f ~/.zshrc.aliases ]] && source ~/.zshrc.aliases 
 
 export PATH="/home/luis/.local/bin:$PATH"
 export TERM=xterm-kitty
 export CONFIG="$HOME/.config"
+export RTV_BROWSER=surf
 stty -ixon
 autoload -Uz compinit
 compinit
 kitty + complete setup zsh | source /dev/stdin
+
+antigen apply

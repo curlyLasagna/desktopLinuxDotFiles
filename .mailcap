@@ -47,7 +47,7 @@ video/*; mpv '%s' --loop=inf; test=test -n "$DISPLAY"
 # 256 color images using half-width unicode characters
 # Much higher quality that img2txt, but must be built from source
 # https://github.com/rossy/img2xterm
-# image/*; curl -s '%s' | convert -resize 1280x720 - jpg:/tmp/rtv.jpg && img2xterm /tmp/rtv.jpg; needsterminal; copiousoutput
+image/*; curl -s '%s' | convert -resize 640x400 - jpg:/tmp/rtv.jpg && img2xterm /tmp/rtv.jpg; needsterminal; copiousoutput
 
 # Display images in classic ascii using img2txt and lib-caca
 # image/*; curl -s '%s' | convert - jpg:/tmp/rtv.jpg && img2txt -f utf8 /tmp/rtv.jpg; needsterminal; copiousoutput

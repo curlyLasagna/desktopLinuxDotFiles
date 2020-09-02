@@ -1,6 +1,6 @@
 #!/bin/sh
-mainWallpaper="$HOME/Pictures/WideHardo/397.jpg"
-sideWallpaper="$HOME/Pictures/pogo/silent-night-in-minneapolis-l1-1080x1920.jpg"
+mainWallpaper="$HOME/Pictures/2560x1080/397.jpg"
+sideWallpaper="$HOME/Pictures/1080x1920/889733.jpg"
 
 # set background
 feh --bg-scale $mainWallpaper $sideWallpaper

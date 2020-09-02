@@ -31,11 +31,12 @@ font-0 = Ubuntu Nerd Font:pixelsize=12;2
 font-1 = icomoon:pixelsize=11;3
 font-2 = FontAwesome:size=12;1
 font-3 = Weather Icons:size=12;1
+font-4 = Source Han Serif:size=11;2
 
 ; Modules location
 modules-left = 2bWorkspace 
-modules-center = date eyestrain
-modules-right = pulseaudio bluetooth wireless
+modules-center = date player-mpris-simple 
+modules-right = pulseaudio wireless
 
 ; Tray settings
 tray-maxsize = 16
@@ -69,12 +70,12 @@ module-margin-left = 2
 module-margin-right = 2
 
 ; Fonts/Icons
-font-0 = Ubuntu Nerd Font:pixelsize=12;2
-font-1 = icomoon:pixelsize=11;3
-font-2 = FontAwesome:size=12:;1
+font-0 = "Ubuntu Nerd Font:pixelsize=12;2"
+font-1 = "FontAwesome:size=13;1"
+font-2 = "Weather Icons:size=11;3"
 
 ; Modules location
-modules-left = simple-weather 
+modules-left = openweathermap-forecast 
 modules-center = xwindow 
 modules-right = memory cpu
 

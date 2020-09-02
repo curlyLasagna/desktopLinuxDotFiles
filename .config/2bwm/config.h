@@ -30,9 +30,9 @@ static const uint8_t offsets[] = {
 static const char *colors[] = {
 /* focused					*/ "#faebd7",
 /* unfocused				*/ "#333333",
-/* fixed						*/ "#d41243",
-/* unkillable				*/ "#e1d02d",
-/* fixed unkillable */ "#c8d3ff",
+/* fixed						*/ "#3262a8",
+/* unkillable				*/ "#69020b",
+/* fixed unkillable */ "#2f114d",
 /* outer border			*/ "#0d131a",
 /* empty						*/ "#000000"
 };
@@ -66,6 +66,7 @@ static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
 static const char *menucmd[]   = {"rofi", "-show", "drun", "-modi", "drun", NULL };
 static const char *windowcmd[] = {"rofi", "-show", "window", "-modi", "window", NULL};
+// Suspends and powers up in the next couple seconds
 static const char *lockcmd[] 	 = {"slock", "systemctl", "suspend", "-i", NULL};
 static const char *terminalcmd[]  = {"kitty", NULL};
 // Terminal applications that terminates the terminal after process ends
@@ -75,6 +76,10 @@ static const char *gotopcmd[] = {"kitty", "gotop", NULL};
 static const char *volumeToggle[]   = { "amixer", "set", "Master", "toggle", NULL };
 static const char *volumeIncrease[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
 static const char *volumeDecrease[] = { "amixer", "-q", "set", "Master", "5%-", NULL };
+// Media Controls
+static const char *previousMedia[] = {"playerctl", "-a", "previous", NULL};
+static const char *playMedia[] = {"playerctl", "-a", "play-pause", NULL};
+static const char *nextMedia[] = {"playerctl", "-a", "next", NULL};
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg) {
 	Arg arg2 = {.i=TWOBWM_MAXHALF_VERTICAL_LEFT};
@@ -86,9 +91,10 @@ static void halfandcentered(const Arg *arg) {
 ///---Sloppy focus behavior---///
 /* Command to execute when switching from sloppy focus to click to focus
  * The strings "Sloppy" and "Click" will be passed as the last argument
- * If NULL this is ignored */
-//static const char *sloppy_switch_cmd[] = {};
-static const char *sloppy_switch_cmd[] = { "notify-send","-i", "$HOME/Pictures/SavedPictures/Icons/pepeLaugh.png" "2bwm", "Sloppy toggled", NULL };
+ * If NULL this is ignored 
+ * tl;dr: Click to focus instead of hover to focus */
+// static const char *sloppy_switch_cmd[] = {};
+static const char *sloppy_switch_cmd[] = { "notify-send","-i", "$HOME/Pictures/Emotes/pepeLaugh.png" "2bwm", "Sloppy toggled", NULL };
 static void toggle_sloppy(const Arg *arg) {
 	is_sloppy = !is_sloppy;
 	if (arg->com != NULL && LENGTH(arg->com) > 0) {
@@ -221,6 +227,10 @@ static key keys[] = {
 		{  0 ,								XF86XK_AudioMute,						start,				{.com = volumeToggle}},
 		{  0 ,								XF86XK_AudioRaiseVolume,		start,				{.com = volumeIncrease}},
 		{  0 ,								XF86XK_AudioLowerVolume,		start,				{.com = volumeDecrease}},
+		// Media Controls
+		{  0 ,								XF86XK_AudioPrev,		  start,				{.com = previousMedia}},
+		{  0 ,								XF86XK_AudioPlay,			start,				{.com = playMedia}},
+		{  0 ,								XF86XK_AudioForward,		start,				{.com = nextMedia}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_e,          twobwm_exit,       {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},

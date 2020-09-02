@@ -8,8 +8,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 xset b off
-xset s off
-xset dpms 600 60 60
 
 # notification daemon
 dunst & 														
@@ -19,6 +17,8 @@ sleep 1 ; $HOME/.screenlayout/defaultLayout.sh
 picom -b
 # set background
 $HOME/scripts/setWallpaper.sh
+# xidlehook script
+$HOME/scripts/xidlehookLock.sh &
 # launch bar
 $HOME/scripts/polybar_launch.sh & 
 
