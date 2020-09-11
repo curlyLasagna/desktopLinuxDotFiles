@@ -4,6 +4,8 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle zsh-less-colors
 antigen bundle archlinux
+antigen bundle docker
+antigen bundle docker-compose
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle ael-code/zsh-colored-man-pages
@@ -86,8 +88,7 @@ export TERM=xterm-kitty
 export CONFIG="$HOME/.config"
 export RTV_BROWSER=surf
 stty -ixon
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit -i
 kitty + complete setup zsh | source /dev/stdin
 
 antigen apply

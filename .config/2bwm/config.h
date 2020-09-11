@@ -65,7 +65,7 @@ static const uint8_t borders[] = {
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
 static const char *menucmd[]   = {"rofi", "-show", "drun", "-modi", "drun", NULL };
-static const char *windowcmd[] = {"rofi", "-show", "window", "-modi", "window", NULL};
+static const char *windowcmd[] = {"rofi", "-show", "windowcd", NULL};
 // Suspends and powers up in the next couple seconds
 static const char *lockcmd[] 	 = {"slock", "systemctl", "suspend", "-i", NULL};
 static const char *terminalcmd[]  = {"kitty", NULL};
@@ -74,8 +74,8 @@ static const char *rangercmd[] = {"kitty", "ranger", NULL};
 static const char *gotopcmd[] = {"kitty", "gotop", NULL};
 // Volume
 static const char *volumeToggle[]   = { "amixer", "set", "Master", "toggle", NULL };
-static const char *volumeIncrease[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
-static const char *volumeDecrease[] = { "amixer", "-q", "set", "Master", "5%-", NULL };
+static const char *volumeIncrease[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
+static const char *volumeDecrease[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 // Media Controls
 static const char *previousMedia[] = {"playerctl", "-a", "previous", NULL};
 static const char *playMedia[] = {"playerctl", "-a", "play-pause", NULL};
@@ -218,7 +218,7 @@ static key keys[] = {
     {  MOD |SHIFT,        XK_Left,       cursor_move,       {.i=TWOBWM_CURSOR_LEFT}},
     // Start programs
     {  MOD ,              XK_d,          start,             {.com = menucmd}},
-    {  MOD |SHIFT,        XK_d,          start,             {.com = windowcmd}},
+    {  MOD ,        			XK_Tab,        start,             {.com = windowcmd}},
 		{	 MOD ,							XK_Return,		 start,							{.com = terminalcmd}},
 		{	 MOD ,							XK_BackSpace,	 start,							{.com = lockcmd}},
 		{	 MOD ,							XK_e,		 			 start,							{.com = rangercmd}},

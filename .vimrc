@@ -33,6 +33,8 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'preservim/nerdcommenter'
 " Bunch of colorschemes
 Plug 'flazz/vim-colorschemes'
+" CSS color
+Plug 'ap/vim-css-color'
 
 call plug#end()            
 
