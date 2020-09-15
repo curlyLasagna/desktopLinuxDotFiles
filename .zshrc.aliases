@@ -15,7 +15,6 @@ alias listSrvc='systemctl list-unit-files | grep'
 # User aliases 
 alias rm='rm -I'													
 alias cat='ccat'													
-alias free='free -h'
 alias cls="printf '\033c'"											
 alias i3edit="vim ~/.config/i3/config"
 alias i3stat='vim ~/.config/i3status/config'

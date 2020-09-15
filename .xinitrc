@@ -7,28 +7,25 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-xset b off
-# notification daemon
-dunst & 														
-# compositor
-picom -b
-# xidlehook script
 $HOME/scripts/xidlehookLock.sh &
-# set xrandr 
 sleep 1 ; $HOME/.screenlayout/defaultLayout.sh
 
-session=${1:-2bwm}
+session=${1:-spectrwm}
 
 case "$session" in
 	2bwm)	
-		# launch bar
+		dunst &									
+		picom -b
 		$HOME/scripts/polybar_launch.sh & 
-		# set background
 		$HOME/scripts/setWallpaper.sh
-		exec 2bwm 2> /tmp/2bwm.log
+		exec 2bwm > /tmp/2bwm.log
+		redshift-gtk
 		;;
 	spectrwm) 
-		exec spectrwm 2> /tmp/spectrwm.log
+		exec spectrwm > /tmp/spectrwm.log
+		;;
+	leftwm)
+		exec dbus-launch leftwm > /tmp/spectrwm.log
 		;;
 	*)
 		exec "$session"

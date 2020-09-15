@@ -15,13 +15,13 @@ tray_output=$1
 for m in $outputs; do
 	if [ $m == $1 ]
 	then
-		MONITOR1=$m polybar --reload 2bwm &	
+		MONITOR1=$m polybar -c "~/.config/polybar/polybar.config" --reload 2bwm &	
 	elif [ $m == $2 ]
 	then
 		tray_output=$m
-		MONITOR2=$m polybar --reload sideBar &
+		MONITOR2=$m polybar -c "~/.config/polybar/polybar.config" --reload sideBar &
 	else
-		MONITOR1=$m polybar --reload 2bwm &
+		MONITOR1=$m polybar -c "~/.config/polybar/polybar.config" --reload 2bwm &
 	fi
 done
 

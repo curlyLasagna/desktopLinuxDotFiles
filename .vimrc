@@ -79,7 +79,6 @@ endif
 "*************************"
 			"Custom keymaps "
 "*************************"
-cmap w!! w !sudo tee > /dev/null %
 
 "*************************"
 			"Custom Commands"
@@ -108,6 +107,7 @@ set tabstop=2
 set smarttab
 " Set leader key
 let mapleader=";"
+set timeoutlen=2000
 " Leader Keys	
 " Vim mappings tl;dr
 " :map - root of all recursive mapping commands
@@ -124,6 +124,8 @@ nnoremap <leader>j :terminal <Return>
 nnoremap <leader>; <Esc>
 nnoremap <leader>w :w <Return>
 nnoremap <leader>q :q <Return>
+nnoremap <leader>x :x <Return>
+noremap <leader>W :w !sudo tee % > /dev/null 
 
 " vim-Terminal configuration
 set termwinsize=30*0
@@ -133,7 +135,5 @@ set splitbelow
 set encoding=utf-8
 set termguicolors
 
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " .rasi syntax highlighting
 au BufNewFile,BufRead /*.rasi setf css
