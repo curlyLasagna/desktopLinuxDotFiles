@@ -35,6 +35,10 @@ Plug 'preservim/nerdcommenter'
 Plug 'flazz/vim-colorschemes'
 " CSS color
 Plug 'ap/vim-css-color'
+" Easy Motion
+Plug 'easymotion/vim-easymotion'
+" Js syntax highlighting
+Plug 'pangloss/vim-javascript'
 
 call plug#end()            
 
@@ -60,8 +64,13 @@ let g:lightline = {
 let g:indentLine_char = '|'
 
 " Prettier leader key trigger
-nmap <Leader>py <Plug>(Prettier)
 let g:prettier#autoformat_require_pragma = 0
+
+" YCM configuration
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_max_num_candidates = 15
+let g:ycm_auto_hover = ''
+let g:ycm_auto_trigger = 1
 
 "*************************"
 			"gvim settings"
@@ -74,6 +83,7 @@ if has("gui_running")
 else 
 	" Terminal colorscheme
 	colo woju
+	syntax on
 endif
 
 "*************************"
@@ -99,34 +109,36 @@ set clipboard=unnamed
 
 " Mouse emulation within vim 
 set mouse=a
-syntax enable
 
 " Tabbing options
 set shiftwidth=2 
 set tabstop=2
 set smarttab
+
 " Set leader key
 let mapleader=";"
 set timeoutlen=2000
-" Leader Keys	
-" Vim mappings tl;dr
-" :map - root of all recursive mapping commands
-" Map that works in all modes
-" :remap - works recursively 
-" :noremap - non-recursive
-" Normal mode mappings
-" :nmap  
-" :nnoremap
-" Visual mode
-" :vmap
-" :vnoremap
-nnoremap <leader>j :terminal <Return>
-nnoremap <leader>; <Esc>
+
+" Remaps
+" Yank to system clipboard
+nnoremap <leader>y :"+y
 nnoremap <leader>w :w <Return>
 nnoremap <leader>q :q <Return>
-nnoremap <leader>x :x <Return>
+nnoremap <leader>wq :x <Return>
+" cd to file's current directory 
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" save file with admin rights
 noremap <leader>W :w !sudo tee % > /dev/null 
+" Plugin leader keys
+nmap <leader>D <plug>(YCMHover)
+nmap <Leader>py <Plug>(Prettier)
+" hjkl motions
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
 
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 " vim-Terminal configuration
 set termwinsize=30*0
 " new split panes start at the bottom. Default top

@@ -64,22 +64,48 @@ static const uint8_t borders[] = {
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *menucmd[]   = {"rofi", "-show", "drun", "-modi", "drun", NULL };
-static const char *windowcmd[] = {"rofi", "-show", "windowcd", NULL};
-// Suspends and powers up in the next couple seconds
-static const char *lockcmd[] 	 = {"slock", "systemctl", "suspend", "-i", NULL};
-static const char *terminalcmd[]  = {"kitty", NULL};
-// Terminal applications that terminates the terminal after process ends
-static const char *rangercmd[] = {"kitty", "ranger", NULL};
-static const char *gotopcmd[] = {"kitty", "gotop", NULL};
-// Volume
-static const char *volumeToggle[]   = { "amixer", "set", "Master", "toggle", NULL };
-static const char *volumeIncrease[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
-static const char *volumeDecrease[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
-// Media Controls
-static const char *previousMedia[] = {"playerctl", "-a", "previous", NULL};
-static const char *playMedia[] = {"playerctl", "-a", "play-pause", NULL};
-static const char *nextMedia[] = {"playerctl", "-a", "next", NULL};
+static const char *menucmd[]   = {
+	"rofi", "-show", "drun", "-modi", "drun", NULL 
+};
+static const char *windowcmd[] = {
+	"rofi", "-show", "windowcd", NULL
+};
+static const char *lockcmd[] 	 = {
+	"slock", "systemctl", "suspend", "-i", NULL
+};
+static const char *terminalcmd[]  = {
+	"kitty", NULL
+};
+static const char *rangercmd[] = {
+	"kitty", "ranger", NULL
+};
+static const char *gotopcmd[] = {
+	"kitty", "gotop", NULL
+};
+						/**********
+							 Volume
+						***********/
+static const char *volumeToggle[]   = {
+	"amixer", "set", "Master", "toggle", NULL
+};
+static const char *volumeIncrease[] = {
+ "amixer", "-q", "set", "Master", "5%+", "unmute", NULL 
+};
+static const char *volumeDecrease[] = {
+ "amixer", "-q", "set", "Master", "5%-", "unmute", NULL
+};
+					/******************
+						 Media Controls
+					*******************/
+static const char *previousMedia[] = {
+	"playerctl", "-a", "previous", NULL
+};
+static const char *playMedia[] = {
+	"playerctl", "-a", "play-pause", NULL
+};
+static const char *nextMedia[] = {
+	"playerctl", "-a", "next", NULL
+};
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg) {
 	Arg arg2 = {.i=TWOBWM_MAXHALF_VERTICAL_LEFT};
@@ -89,11 +115,6 @@ static void halfandcentered(const Arg *arg) {
 }
 
 ///---Sloppy focus behavior---///
-/* Command to execute when switching from sloppy focus to click to focus
- * The strings "Sloppy" and "Click" will be passed as the last argument
- * If NULL this is ignored 
- * tl;dr: Click to focus instead of hover to focus */
-// static const char *sloppy_switch_cmd[] = {};
 static const char *sloppy_switch_cmd[] = { "notify-send","-i", "$HOME/Pictures/Emotes/pepeLaugh.png" "2bwm", "Sloppy toggled", NULL };
 static void toggle_sloppy(const Arg *arg) {
 	is_sloppy = !is_sloppy;
@@ -101,19 +122,7 @@ static void toggle_sloppy(const Arg *arg) {
 		start(arg);
 	}
 }
-///---Shortcuts---///
-/* Check /usr/include/X11/keysymdef.h for the list of all keys
- * 0x000000 is for no modkey
- * If you are having trouble finding the right keycode use the `xev` to get it
- * For example:
- * KeyRelease event, serial 40, synthetic NO, window 0x1e00001,
- *  root 0x98, subw 0x0, time 211120530, (128,73), root:(855,214),
- *  state 0x10, keycode 171 (keysym 0x1008ff17, XF86AudioNext), same_screen YES,
- *  XLookupString gives 0 bytes: 
- *  XFilterEvent returns: False
- *
- *  The keycode here is keysym 0x1008ff17, so use  0x1008ff17
- */
+
 #define DESKTOPCHANGE(K,N) \
 {  MOD ,             K,              changeworkspace, {.i=N}}, \
 {  MOD |SHIFT,       K,              sendtoworkspace, {.i=N}},
@@ -122,19 +131,24 @@ static key keys[] = {
     // Focus to next/previous window
     {  ALT ,              XK_Tab,        focusnext,         {.i=TWOBWM_FOCUS_NEXT}},
     {  ALT |SHIFT,        XK_Tab,        focusnext,         {.i=TWOBWM_FOCUS_PREVIOUS}},
+
     // Kill a window
     {  MOD ,              XK_q,          deletewin,         {}},
+
     // Resize a window
     {  MOD |SHIFT,        XK_k,          resizestep,        {.i=TWOBWM_RESIZE_UP}},
     {  MOD |SHIFT,        XK_j,          resizestep,        {.i=TWOBWM_RESIZE_DOWN}},
     {  MOD |SHIFT,        XK_l,          resizestep,        {.i=TWOBWM_RESIZE_RIGHT}},
     {  MOD |SHIFT,        XK_h,          resizestep,        {.i=TWOBWM_RESIZE_LEFT}},
+
     // Resize a window slower
     {  MOD |SHIFT|CONTROL,XK_k,          resizestep,        {.i=TWOBWM_RESIZE_UP_SLOW}},
     {  MOD |SHIFT|CONTROL,XK_j,          resizestep,        {.i=TWOBWM_RESIZE_DOWN_SLOW}},
     {  MOD |SHIFT|CONTROL,XK_l,          resizestep,        {.i=TWOBWM_RESIZE_RIGHT_SLOW}},
     {  MOD |SHIFT|CONTROL,XK_h,          resizestep,        {.i=TWOBWM_RESIZE_LEFT_SLOW}},
-    // Move a window
+																/*****************
+																	 Move  window
+																*****************/
     {  MOD ,              XK_k,          movestep,          {.i=TWOBWM_MOVE_UP}},
     {  MOD ,              XK_j,          movestep,          {.i=TWOBWM_MOVE_DOWN}},
     {  MOD ,              XK_l,          movestep,          {.i=TWOBWM_MOVE_RIGHT}},
@@ -144,7 +158,9 @@ static key keys[] = {
     {  MOD |CONTROL,      XK_j,          movestep,          {.i=TWOBWM_MOVE_DOWN_SLOW}},
     {  MOD |CONTROL,      XK_l,          movestep,          {.i=TWOBWM_MOVE_RIGHT_SLOW}},
     {  MOD |CONTROL,      XK_h,          movestep,          {.i=TWOBWM_MOVE_LEFT_SLOW}},
-    // Teleport the window to an area of the screen.
+																	/*************
+																		 Teleport 
+																	*************/
     // Center:
     {  MOD ,              XK_g,          teleport,          {.i=TWOBWM_TELEPORT_CENTER}},
     // Center y:
@@ -163,30 +179,36 @@ static key keys[] = {
     {  MOD ,              XK_Home,       resizestep_aspect, {.i=TWOBWM_RESIZE_KEEP_ASPECT_GROW}},
     {  MOD ,              XK_End,        resizestep_aspect, {.i=TWOBWM_RESIZE_KEEP_ASPECT_SHRINK}},
     // Maximize (ignore offset and no EWMH atom)
-    {  MOD ,              XK_x,          maximize,          {}},
+    {  MOD ,              XK_e,          maximize,          {}},
     // Full screen (disregarding offsets and adding EWMH atom)
-    {  MOD |SHIFT ,       XK_x,          fullscreen,        {}},
+    {  MOD |SHIFT ,       XK_f,          fullscreen,        {}},
     // Maximize vertically
     {  MOD ,              XK_m,          maxvert_hor,       {.i=TWOBWM_MAXIMIZE_VERTICALLY}},
     // Maximize horizontally
     {  MOD |SHIFT,        XK_m,          maxvert_hor,       {.i=TWOBWM_MAXIMIZE_HORIZONTALLY}},
-    // Maximize and move
+																/**********************
+																 	Maximize and move	
+																**********************/
     // vertically left
-    {  MOD |SHIFT,        XK_y,          maxhalf,           {.i=TWOBWM_MAXHALF_VERTICAL_LEFT}},
+    {  MOD,        				XK_Left,        maxhalf,           {.i=TWOBWM_MAXHALF_VERTICAL_LEFT}},
     // vertically right
-    {  MOD |SHIFT,        XK_u,          maxhalf,           {.i=TWOBWM_MAXHALF_VERTICAL_RIGHT}},
+    {  MOD,        				XK_Right,       maxhalf,           {.i=TWOBWM_MAXHALF_VERTICAL_RIGHT}},
+
     // horizontally left
-    {  MOD |SHIFT,        XK_b,          maxhalf,           {.i=TWOBWM_MAXHALF_HORIZONTAL_BOTTOM}},
+    {  MOD,        				XK_Down,        maxhalf,           {.i=TWOBWM_MAXHALF_HORIZONTAL_BOTTOM}},
     // horizontally right
-    {  MOD |SHIFT,        XK_n,          maxhalf,           {.i=TWOBWM_MAXHALF_HORIZONTAL_TOP}},
+    {  MOD,        				XK_Up,          maxhalf,           {.i=TWOBWM_MAXHALF_HORIZONTAL_TOP}},
+
     //fold half vertically
-    {  MOD |SHIFT|CONTROL,XK_y,          maxhalf,           {.i=TWOBWM_MAXHALF_FOLD_VERTICAL}},
+    {  MOD |SHIFT,				XK_Down,        maxhalf,           {.i=TWOBWM_MAXHALF_FOLD_VERTICAL}},
     //fold half horizontally
-    {  MOD |SHIFT|CONTROL,XK_b,          maxhalf,           {.i=TWOBWM_MAXHALF_FOLD_HORIZONTAL}},
+    {  MOD |SHIFT,				XK_Left,        maxhalf,           {.i=TWOBWM_MAXHALF_FOLD_HORIZONTAL}},
+
     //unfold vertically
-    {  MOD |SHIFT|CONTROL,XK_u,          maxhalf,           {.i=TWOBWM_MAXHALF_UNFOLD_VERTICAL}},
+    {  MOD |SHIFT,				XK_Up,          maxhalf,           {.i=TWOBWM_MAXHALF_UNFOLD_VERTICAL}},
     //unfold horizontally
-    {  MOD |SHIFT|CONTROL,XK_n,          maxhalf,           {.i=TWOBWM_MAXHALF_UNFOLD_HORIZONTAL}},
+    {  MOD |SHIFT,				XK_Right,       maxhalf,           {.i=TWOBWM_MAXHALF_UNFOLD_HORIZONTAL}},
+
     // Next/Previous screen
     {  MOD ,              XK_comma,      changescreen,      {.i=TWOBWM_NEXT_SCREEN}},
     {  MOD ,              XK_period,     changescreen,      {.i=TWOBWM_PREVIOUS_SCREEN}},
@@ -221,7 +243,7 @@ static key keys[] = {
     {  MOD ,        			XK_Tab,        start,             {.com = windowcmd}},
 		{	 MOD ,							XK_Return,		 start,							{.com = terminalcmd}},
 		{	 MOD ,							XK_BackSpace,	 start,							{.com = lockcmd}},
-		{	 MOD ,							XK_e,		 			 start,							{.com = rangercmd}},
+		{	 MOD |SHIFT ,				XK_e,		 			 start,							{.com = rangercmd}},
 		{	 MOD ,							XK_apostrophe, start,							{.com = gotopcmd}},
 		// Volume
 		{  0 ,								XF86XK_AudioMute,						start,				{.com = volumeToggle}},
@@ -230,7 +252,7 @@ static key keys[] = {
 		// Media Controls
 		{  0 ,								XF86XK_AudioPrev,		  start,				{.com = previousMedia}},
 		{  0 ,								XF86XK_AudioPlay,			start,				{.com = playMedia}},
-		{  0 ,								XF86XK_AudioForward,		start,				{.com = nextMedia}},
+		{  0 ,								XF86XK_AudioNext,		start,				{.com = nextMedia}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_e,          twobwm_exit,       {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},
