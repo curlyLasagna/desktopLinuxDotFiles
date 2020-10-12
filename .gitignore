@@ -1,26 +1,56 @@
+# ignore everything in home
 *
+
+# Append files you don't want to be ignored
 .config/*
 !.config/
+!.config/*/*
+
+# 2bwm 
 !.config/2bwm/config.h
+
+# kitty terminmal
 !.config/kitty/kitty.conf
+
+# polybar
+!.config/polybar/
+!.config/polybar/*
 !.config/polybar/colors.ini
 !.config/polybar/modules.ini
 !.config/polybar/polybar.config
+
+# redshift
 !.config/redshift/redshift.conf
+
+# rtv default applications 
 !.mailcap
+
+# spectrwm
 !.spectrwm.conf
+
+# tmux
 !.tmux.conf
+
+# vim/gvim
 !.vimrc
+
+# x startup
 !.xinitrc
+
+# zsh
 .zsh/*
 !.zsh/
 !.zsh/.zshrc
 !.zsh/.zshrc.aliases
 !.zshenv
 !README.md
+
+# scripts directory 
 .scripts/*
 !scripts/
 !scripts/polybar_launch.sh
 !scripts/setWallpaper.sh
 !scripts/xidlehookLock.sh
+
+# gitignore
 !.gitignore
