@@ -7,6 +7,10 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
+# Stare gnome-keyring-daemon
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
+
 $HOME/scripts/xidlehookLock.sh &
 sleep 1 ; $HOME/.screenlayout/defaultLayout.sh
 xset dpms 0 0 3600
@@ -17,26 +21,23 @@ session=${1:-gnome}
 case "$session" in
 	2bwm)	
 		dunst &									
-		picom -b
+		# picom -b
 		$HOME/scripts/polybar_launch.sh & 
 		$HOME/scripts/setWallpaper.sh
-		exec 2bwm > /tmp/2bwm.log
+		exec "$session" > /tmp/2bwm.log
 		pkill redshift
 		redshift-gtk
 		;;
 	spectrwm) 
-		exec spectrwm > /tmp/spectrwm.log
-		;;
-	sowm)
-		dunst &									
-		picom -b
-		$HOME/scripts/setWallpaper.sh
-		exec sowm > /tmp/sowm.log
+		exec "$session" > /tmp/spectrwm.log
 		;;
 	gnome)
 		export XDG_SESSION_TYPE=x11
 		export GDK_BACKEND=x11
 		exec gnome-session	
+		;;
+	i3)
+		i3
 		;;
 	*)
 		exec "$session"

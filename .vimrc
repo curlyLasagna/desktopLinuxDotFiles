@@ -51,7 +51,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:NERDTreeWinSize=25
 
-set completeopt-=preview
 
 " lightline options
 set laststatus=2
@@ -67,6 +66,7 @@ let g:indentLine_char = '|'
 let g:prettier#autoformat_require_pragma = 0
 
 " YCM configuration
+set completeopt-=preview
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_max_num_candidates = 15
 let g:ycm_auto_hover = ''
@@ -94,9 +94,6 @@ endif
 			"Custom Commands"
 "*************************"
 
-" CDC = Change to Directory of Current file
-command CDC cd %:p:h
- 
 "*************************"
 	"Vim user configurations"
 "*************************"
@@ -111,9 +108,7 @@ set clipboard=unnamed
 set mouse=a
 
 " Tabbing options
-set shiftwidth=2 
-set tabstop=2
-set smarttab
+set sw=2 ts=2 sta et
 
 " Set leader key
 let mapleader=";"
@@ -146,6 +141,11 @@ set splitbelow
 
 set encoding=utf-8
 set termguicolors
+
+" Back up directories
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 
 " .rasi syntax highlighting
 au BufNewFile,BufRead /*.rasi setf css

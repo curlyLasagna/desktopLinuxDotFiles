@@ -1,32 +1,52 @@
-# ignore everything in home
+# ignore everything
 *
 
 # Append files you don't want to be ignored
-.config/*
-!.config/
-!.config/*/*
+!/.config/
+/.config/*
 
 # 2bwm 
-!.config/2bwm/config.h
+!/.config/2bwm/
+/.config/2bwm/*
+!/.config/2bwm/config.h
+
+# i3
+/.config/i3/*
+/.config/i3status/*
+!/.config/i3/
+!/.config/i3status/
+
+# spectrwm
+!.spectrwm.conf
 
 # kitty terminmal
-!.config/kitty/kitty.conf
+!/.config/kitty/
+/.config/kitty/*
+!/.config/kitty/kitty.conf
 
 # polybar
-!.config/polybar/
-!.config/polybar/*
-!.config/polybar/colors.ini
-!.config/polybar/modules.ini
-!.config/polybar/polybar.config
+/.config/polybar/*
+!/.config/polybar/
+!/.config/polybar/*
+!/.config/polybar/colors.ini
+!/.config/polybar/modules.ini
+!/.config/polybar/polybar.config
+
+# dunst
+!/.config/dunst/
+/.config/dunst/*
+!/.config/dunst/dunstrc
 
 # redshift
-!.config/redshift/redshift.conf
+/.config/redshift/*
+!/.config/redshift/
+!/.config/redshift/redshift.conf
 
 # rtv default applications 
 !.mailcap
 
-# spectrwm
-!.spectrwm.conf
+# picom
+!/.config/picom.conf
 
 # tmux
 !.tmux.conf
@@ -38,7 +58,7 @@
 !.xinitrc
 
 # zsh
-.zsh/*
+/.zsh/*
 !.zsh/
 !.zsh/.zshrc
 !.zsh/.zshrc.aliases
@@ -46,11 +66,11 @@
 !README.md
 
 # scripts directory 
-.scripts/*
-!scripts/
-!scripts/polybar_launch.sh
-!scripts/setWallpaper.sh
-!scripts/xidlehookLock.sh
+/scripts/*
+!/scripts/
+!/scripts/polybar_launch.sh
+!/scripts/setWallpaper.sh
+!/scripts/xidlehookLock.sh
 
 # gitignore
 !.gitignore
