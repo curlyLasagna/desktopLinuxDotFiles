@@ -1,0 +1,35 @@
+general {
+	colors = false
+	interval = 1
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "wireless wlan0"
+order += "volume master"
+order += "tztime America/New_York"
+
+cpu_usage {
+  format = " %usage " 
+}
+
+memory {
+	format = " %used "	
+}
+
+wireless wlan0 {
+  format_up = " %essid "
+  format_down = "No internet"
+}
+
+volume master {
+	format = " Vol %volume "
+	format_muted = " Mute " 
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+tztime America/New_York {
+	format = " %b %e %a %I:%M %P "
+}

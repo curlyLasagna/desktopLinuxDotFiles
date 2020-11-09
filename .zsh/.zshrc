@@ -26,15 +26,11 @@ HIST_STAMPS="mm/dd/yyyy"
 
 						# User configuration #
 						
-# Run tmux on startup
-# [[ $TERM != "screen" ]] && exec tmux
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 unsetopt correct_all
 
-# For a full list of active aliases, run `alias`.
 [[ -f $ZDOTDIR/.zshrc.aliases ]] && source $ZDOTDIR/.zshrc.aliases 
 
 stty -ixon
@@ -65,3 +61,9 @@ SPACESHIP_TIME_SHOW=true
 SPACESHIP_TIME_12HR=true
 SPACESHIP_TIME_PREFIX=""
 SPACESHIP_DIR_TRUNC=0
+
+# Attaches tmux 
+# if command -v tmux >/dev/null 2>&1; then
+#     # if not inside a tmux session, and if no session is started, start a new session
+#     [ -z "${TMUX}" ] && (tmux attach >/dev/null 2>&1 || tmux)
+# fi

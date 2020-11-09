@@ -1,46 +1,48 @@
 # ignore everything
-*
+/*
+/*/
 
 # Append files you don't want to be ignored
 !/.config/
 /.config/*
 
 # 2bwm 
-!/.config/2bwm/
 /.config/2bwm/*
-!/.config/2bwm/config.h
+!/.config/2bwm/
+!/.config/2bwm/*
 
 # i3
 /.config/i3/*
-/.config/i3status/*
 !/.config/i3/
+!/.config/i3/*
+
+# i3status
+/.config/i3status/*
 !/.config/i3status/
+!/.config/i3status/*
 
 # spectrwm
 !.spectrwm.conf
 
 # kitty terminmal
-!/.config/kitty/
 /.config/kitty/*
+!/.config/kitty/
 !/.config/kitty/kitty.conf
 
 # polybar
 /.config/polybar/*
 !/.config/polybar/
 !/.config/polybar/*
-!/.config/polybar/colors.ini
-!/.config/polybar/modules.ini
-!/.config/polybar/polybar.config
 
 # dunst
-!/.config/dunst/
 /.config/dunst/*
-!/.config/dunst/dunstrc
+!/.config/dunst/
+!/.config/dunst/*
 
 # redshift
 /.config/redshift/*
 !/.config/redshift/
-!/.config/redshift/redshift.conf
+!/.config/redshift/*
 
 # rtv default applications 
 !.mailcap
