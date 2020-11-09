@@ -6,11 +6,17 @@ set $mod Mod4
 # Home row direction keys, like vim
 set $left 	h
 set $down 	j
-set $up 		k
+set $up 	k
 set $right 	l
 
-# Your preferred terminal emulator
+# Preferred terminal emulator
 set $term kitty
+
+# Preferred text editor
+set $editor vim
+
+# Set i3 scripts directory
+set $bin ~/.config/i3/bin/
 
 # Your preferred application launcher
 set $menu "rofi -show drun -modi drun"
@@ -18,8 +24,8 @@ set $menu "rofi -show drun -modi drun"
 # Basics:
   floating_modifier $mod
 
-  # Edit i3
-  bindsym $mod+F2 exec $term $VISUAL ~/.config/i3/config
+  # Edit i3 config
+  bindsym $mod+F2 exec $term $editor ~/.config/i3/config
 
   # Start a terminal
   bindsym $mod+Return exec $term
@@ -37,7 +43,7 @@ set $menu "rofi -show drun -modi drun"
   bindsym $mod+Control+e exit
 
   # New workspace
-  bindsym $mod+apostrophe exec --no-startup-id $HOME/.config/i3/bin/i3-new-workspace.sh
+  bindsym $mod+apostrophe exec --no-startup-id $bin/i3-new-workspace.sh
   
   # Resizing
   bindsym $mod+Mod1+h resize shrink width 30px
@@ -51,16 +57,16 @@ set $menu "rofi -show drun -modi drun"
   bindsym $mod+$left 	focus left
   bindsym $mod+$down 	focus down
   bindsym $mod+$up 		focus up
-  bindsym $mod+$right focus right
+  bindsym $mod+$right   focus right
 
   # Move the focused window
   bindsym $mod+Shift+$left 	move left
   bindsym $mod+Shift+$down 	move down
-  bindsym $mod+Shift+$up 		move up
+  bindsym $mod+Shift+$up	move up
   bindsym $mod+Shift+$right move right
 
 	# Go to next/previous workspace 
-	bindsym $mod+Tab 			 workspace next_on_output
+	bindsym $mod+Tab       workspace next_on_output
 	bindsym $mod+Shift+Tab workspace prev_on_output
 
   # Move container to next/previous workspace
@@ -145,12 +151,12 @@ default_border pixel 3
 # Window Title bars
 title_align center
 
-# class									border 	background	text		indicator	child_border
-client.focused          #4c7899 #285577     #ffffff #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a     #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222     #888888 #292d2e   #222222
-client.urgent           #2f343a #900000     #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c     #ffffff #000000   #0c0c0c
+# class					border 	background text	   indicator child_border
+client.focused          #4c7899 #285577    #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a    #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222    #888888 #292d2e   #222222
+client.urgent           #2f343a #900000    #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c    #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 bar {
