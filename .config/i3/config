@@ -19,101 +19,110 @@ set $editor vim
 set $bin ~/.config/i3/bin/
 
 # Your preferred application launcher
-set $menu "rofi -show drun -modi drun"
+set $menu "rofi -show drun -modi drun,run"
+
+# Startup applications
+exec --no-start-id dunst
+exec --no-startup-id ~/.screenlayout/tempLayout.sh
+exec --no-startup-id ~/scripts/setWallpaper.sh
 
 # Basics:
-  floating_modifier $mod
+    floating_modifier $mod
 
-  # Edit i3 config
-  bindsym $mod+F2 exec $term $editor ~/.config/i3/config
+    # Edit i3 config
+    bindsym $mod+F2 exec $term $editor ~/.config/i3/config
 
-  # Start a terminal
-  bindsym $mod+Return exec $term
+    # Start a terminal
+    bindsym $mod+Return exec $term
 
-  # Kill focused window
-  bindsym $mod+q kill
+    # Kill focused window
+    bindsym $mod+q kill
 
-  # Start your launcher
-  bindsym $mod+d exec $menu
+    # Start your launcher
+    bindsym $mod+d exec $menu
 
-  # Reload the configuration file
-  bindsym $mod+Shift+r restart
+    # Reload the configuration file
+    bindsym $mod+Shift+r restart
 
-  # Exit sway (logs you out of your Wayland session)
-  bindsym $mod+Control+e exit
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Control+e exit
 
-  # New workspace
-  bindsym $mod+apostrophe exec --no-startup-id $bin/i3-new-workspace.sh
-  
-  # Resizing
-  bindsym $mod+Mod1+h resize shrink width 30px
-  bindsym $mod+Mod1+k resize grow height 30px
-  bindsym $mod+Mod1+j resize shrink height 30px
-  bindsym $mod+Mod1+l resize grow width 30px
+    # New workspace
+    bindsym $mod+apostrophe exec --no-startup-id $bin/i3-new-workspace.sh
+    bindsym $mod+Shift+apostrophe exec --no-startup-id $bin/i3-move-new-workspace.sh
+
+    # Resizing
+    bindsym $mod+Right resize grow   width  30px
+    bindsym $mod+Up    resize grow   height 30px
+    bindsym $mod+Left  resize shrink width  30px
+    bindsym $mod+Down  resize shrink height 30px
 
 # Moving around:
 
-  # Move your focus around
-  bindsym $mod+$left 	focus left
-  bindsym $mod+$down 	focus down
-  bindsym $mod+$up 		focus up
-  bindsym $mod+$right   focus right
+    # Move your focus around
+    bindsym $mod+$left 	focus left
+    bindsym $mod+$down 	focus down
+    bindsym $mod+$up 	focus up
+    bindsym $mod+$right focus right
 
-  # Move the focused window
-  bindsym $mod+Shift+$left 	move left
-  bindsym $mod+Shift+$down 	move down
-  bindsym $mod+Shift+$up	move up
-  bindsym $mod+Shift+$right move right
+    # Move the focused window
+    bindsym $mod+Shift+$left  move left
+    bindsym $mod+Shift+$down  move down
+    bindsym $mod+Shift+$up	  move up
+    bindsym $mod+Shift+$right move right
 
-	# Go to next/previous workspace 
-	bindsym $mod+Tab       workspace next_on_output
-	bindsym $mod+Shift+Tab workspace prev_on_output
+    # Go to next/previous workspace 
+    bindsym $mod+Tab       workspace next_on_output
+    bindsym $mod+Shift+Tab workspace prev_on_output
 
-  # Move container to next/previous workspace
-  bindsym $mod+Control+l move container to workspace next_on_output
-  bindsym $mod+Control+h move container to workspace prev_on_output
+    # Move container to next/previous workspace
+    bindsym $mod+Control+l move container to workspace next_on_output
+    bindsym $mod+Control+h move container to workspace prev_on_output
 
-  # Focus other outputs
-  bindsym $mod+n focus output left
-  bindsym $mod+p focus output right
+    # Focus other outputs
+    bindsym $mod+n focus output left
+    bindsym $mod+p focus output right
 
-	# Move window to other output
-	bindsym $mod+Shift+n move output left
-	bindsym $mod+Shift+p move output right
+    # Move window to other output
+    bindsym $mod+Shift+n move output left
+    bindsym $mod+Shift+p move output right
 
-  # Move entire workspace to other output
-  bindsym $mod+Shift+comma move workspace to output left
-  bindsym $mod+Shift+period move workspace to output right
+    # Move window to next workspace
+    bindsym $mod+Control+n move container next_on_output
+
+    # Move entire workspace to other output
+    bindsym $mod+Shift+comma move workspace to output left
+    bindsym $mod+Shift+period move workspace to output right
 
 # Layouts:
 
-  bindsym $mod+g splith
-  bindsym $mod+v splitv
+    bindsym $mod+g splith
+    bindsym $mod+v splitv
 
-  # Switch the current container between different layout styles
-  bindsym $mod+s layout stacking
-  bindsym $mod+e layout tabbed
-  bindsym $mod+x layout toggle split
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+e layout tabbed
+    bindsym $mod+x layout toggle split
 
-  # Make the current focus fullscreen
-  bindsym $mod+f fullscreen
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
 
-  # Toggle the current focus between tiling and floating mode
-  bindsym $mod+t floating toggle
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+t floating toggle
 
-  # Swap focus between the tiling area and the floating area
-  bindsym $mod+Shift+t focus mode_toggle
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+Shift+t focus mode_toggle
 
-  # Move focus to the parent container
-  bindsym $mod+a focus parent
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
 
-# Scratchpad:
+    # Scratchpad:
 
-  # Move the currently focused window to the scratchpad
-  bindsym $mod+w move scratchpad
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+w move scratchpad
 
-  # Show the next scratchpad window or hide the focused scratchpad window.
-  bindsym $mod+Shift+w scratchpad show
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    bindsym $mod+Shift+w scratchpad show
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
@@ -124,11 +133,6 @@ bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 bindsym XF86AudioPlay exec playerctl -a play-pause
 bindsym XF86AudioNext exec playerctl -a next
 bindsym XF86AudioPrev exec playerctl -a previous
-
-# Startup applications
-exec --no-start-id dunst
-exec --no-startup-id ~/.screenlayout/defaultLayout.sh
-exec --no-startup-id ~/scripts/setWallpaper.sh
 
 # Lock screen
 bindsym $mod+BackSpace exec slock 
@@ -160,20 +164,20 @@ client.placeholder      #000000 #0c0c0c    #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 bar {
-  mode dock
-  position top
-  tray_output primary
-  font pango:Crisp 12
-  status_command i3status
-  strip_workspace_numbers yes
+    mode dock
+    position top
+    tray_output primary
+    font pango:Crisp 12
+    status_command i3status
+    strip_workspace_numbers yes
 
-  colors {
-   background #000000
-   statusline #ffffff
+    colors {
+    background #000000
+    statusline #ffffff
 
-   focused_workspace  #000000 #b5b5b5
-   active_workspace   #ffffff #333333
-   inactive_workspace #888888 #222222
-   urgent_workspace   #ffffff #900000
-  }
+    focused_workspace  #000000 #b5b5b5
+    active_workspace   #ffffff #333333
+    inactive_workspace #888888 #222222
+    urgent_workspace   #ffffff #900000
+    }
 }

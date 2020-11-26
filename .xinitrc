@@ -16,7 +16,7 @@ sleep 1 ; $HOME/.screenlayout/defaultLayout.sh
 xset dpms 0 0 3600
 xset s off
 
-session=${1:-gnome}
+session=${1:-i3}
 
 case "$session" in
 	2bwm)	

@@ -125,8 +125,11 @@ set clipboard=unnamed
 " Mouse emulation within vim 
 set mouse=a
 
+set smartcase
+set ignorecase
+
 " Tabbing options
-set sw=4 ts=4 sta et
+set sw=4 ts=4 sts=4 sta et 
 
 " Cursor jumps to the matching brace when inserted
 set showmatch

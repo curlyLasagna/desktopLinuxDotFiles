@@ -1,6 +1,5 @@
 # ignore everything
 /*
-/*/
 
 # Append files you don't want to be ignored
 !/.config/
@@ -22,7 +21,7 @@
 !/.config/i3status/*
 
 # spectrwm
-!.spectrwm.conf
+!./.spectrwm.conf
 
 # kitty terminmal
 /.config/kitty/*
@@ -45,7 +44,7 @@
 !/.config/redshift/*
 
 # rtv default applications 
-!.mailcap
+!./.mailcap
 
 # picom
 !/.config/picom.conf
