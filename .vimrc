@@ -5,8 +5,6 @@ Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf.vim'
 " Cool status line 
 Plug 'itchyny/lightline.vim'
-" YouCompleteMe
-Plug 'valloric/youcompleteme'
 " Directory listing
 Plug 'scrooloose/nerdtree'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -27,8 +25,6 @@ Plug 'tpope/vim-commentary'
 " Distraction-less vim
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-" Prettier formatting
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " ctrl + / like commenting from IDE's
 Plug 'preservim/nerdcommenter'
 " Bunch of colorschemes
@@ -41,6 +37,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
 " Adds icons to plugins such as nerdtree
 Plug 'ryanoasis/vim-devicons'
+" Colorscheme
+Plug 'pineapplegiant/spaceduck', {'branch':'main'}
 call plug#end()            
 
 "****************************"
@@ -56,10 +54,15 @@ let g:NERDTreeWinSize=25
 
 " lightline options
 set laststatus=2
-set noshowmode
+" set noshowmode
 let g:lightline = {
-	\ 'colorscheme': 'seoul256',
+	\ 'colorscheme': 'spaceduck',
 	\ }
+
+" lightline fix
+augroup lightline_hl | au!
+    au Colorscheme * call lightline#disable() | call lightline#enable()
+augroup END
 
 " Set indent char 
 let g:indentLine_char = '|'
@@ -79,28 +82,18 @@ let g:lens#disabled_filetypes = ['nerdtree', 'fzf']
 let g:lens#width_resize_min = 150
 let g:lens#height_resize_min = 150
 
-"*************************"
-    "gvim settings"
-"*************************"
-if has("gui_running")
-" Gui colorscheme
-	colo mountaineer
-	set guioptions -=m
-	set guioptions -=T
-else 
-	" Terminal colorscheme
-	colo woju
-	syntax on
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
-
+ 
 "*************************"
     "Custom keymaps "
 "*************************"
 " Alternative tab navigation
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprevious<CR>
-nnoremap <M-.> :call MoveToNextTab()<CR>
-nnoremap <M-,> :call MoveToPrevTab()<CR>
 
 " Easier split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -185,48 +178,3 @@ set undodir=~/.vim/undo//
 
 " .rasi syntax highlighting
 au BufNewFile,BufRead /*.rasi setf css
-
-" Functions
-function MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabprev
-    endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-function MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
-    endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc

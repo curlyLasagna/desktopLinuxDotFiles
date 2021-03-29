@@ -3,21 +3,22 @@ general {
 	interval = 1
 }
 
-order += "cpu_usage"
 order += "memory"
-order += "wireless wlan0"
+order += "wireless wlp107s0"
 order += "volume master"
+order += "cpu_usage"
+order += "battery 0"
 order += "tztime America/New_York"
 
 cpu_usage {
-  format = " %usage " 
+  format = " Cpu: %usage " 
 }
 
 memory {
 	format = " %used "	
 }
 
-wireless wlan0 {
+wireless wlp107s0 {
   format_up = " %essid "
   format_down = "No internet"
 }
@@ -28,6 +29,15 @@ volume master {
 	device = "default"
 	mixer = "Master"
 	mixer_idx = 0
+}
+
+battery 0 {
+    integer_battery_capacity = true
+    last_full_capacity = true
+    status_bat = "Bat"
+    status_unk = "Charging"
+    format = " %status %percentage "
+    path = "/sys/class/power_supply/BAT1/uevent"
 }
 
 tztime America/New_York {

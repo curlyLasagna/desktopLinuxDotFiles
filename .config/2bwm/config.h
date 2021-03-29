@@ -23,9 +23,9 @@ static const float    resize_keep_aspect_ratio= 1.03;
 // Offsets
 static const uint8_t offsets[] = {
 /* X offset   */	0,
-/* Y offset   */	30,
+/* Y offset   */	25,
 /* Max width  */	0,
-/* Max height */	30
+/* Max height */	25
 };
 
 // Colors
@@ -58,7 +58,7 @@ static const uint8_t borders[] = {
 /* Outer border size  */	3,
 /* Full  border width */	5,
 /* Magnet border size */	5,
-/* Resize border size */	4
+/* Resize border size */	5
 };
 
 /* Windows that won't have a border.
@@ -68,33 +68,38 @@ static const uint8_t borders[] = {
 static const char *ignore_names[] = {"bar", "xclock"};
 // Menus and Programs
 static const char *menucmd[]   = {
-	"rofi", "-show", "drun", "-modi", "drun", NULL 
+	"rofi","-show", "drun", NULL 
 };
-static const char *windowcmd[] = {
-	"rofi", "-show", "windowcd", NULL
+static const char *window_list[] = {
+    "rofi", "-show", "window", NULL
 };
 static const char *lockcmd[] 	 = {
-	"slock", "systemctl", "suspend", "-i", NULL
+	"slock", NULL
 };
 static const char *terminalcmd[]  = {
 	"kitty", NULL
 };
+// File explorer
 static const char *rangercmd[] = {
 	"kitty", "ranger", NULL
 };
+// Resource monitor
 static const char *gotopcmd[] = {
 	"kitty", "gotop", NULL
 };
-
+// Randomly set background
+static const char *randbgcmd[] = {
+    "feh", "--bg-fill", "--randomize", "/home/luis/Pictures/1920x1080/*" , NULL
+};
 // Volume variable
 static const char *volumeToggle[]   = {
 	"amixer", "set", "Master", "toggle", NULL
 };
 static const char *volumeIncrease[] = {
- "amixer", "-q", "set", "Master", "5%+", "unmute", NULL 
+     "amixer", "-q", "set", "Master", "5%+", "unmute", NULL 
 };
 static const char *volumeDecrease[] = {
- "amixer", "-q", "set", "Master", "5%-", "unmute", NULL
+     "amixer", "-q", "set", "Master", "5%-", "unmute", NULL
 };
 
 // Media Controls variable
@@ -108,6 +113,14 @@ static const char *nextMedia[] = {
 	"playerctl", "-a", "next", NULL
 };
 
+// Brightness control
+static const char *brightnessUp[] = {
+    "xbacklight", "-inc", "10", NULL
+};
+static const char *brightnessDown[] = {
+    "xbacklight", "-dec", "10", NULL
+};
+
 // Custom function
 static void halfandcentered(const Arg *arg) {
 	Arg arg2 = {.i=TWOBWM_MAXHALF_VERTICAL_LEFT};
@@ -117,7 +130,6 @@ static void halfandcentered(const Arg *arg) {
 }
 
 // Sloppy focus behavior
-static const char *sloppy_switch_cmd[] = { "notify-send","-i", "$HOME/Pictures/Emotes/pepeLaugh.png" "2bwm", "Sloppy toggled", NULL };
 static void toggle_sloppy(const Arg *arg) {
 	is_sloppy = !is_sloppy;
 	if (arg->com != NULL && LENGTH(arg->com) > 0) {
@@ -190,9 +202,6 @@ static key keys[] = {
     // Maximize (ignore offset and no EWMH atom)
     {  MOD ,              XK_e,                     maximize,            {}},
 
-    // Full screen (disregarding offsets and adding EWMH atom)
-    {  MOD |SHIFT ,       XK_f,                     fullscreen,          {}},
-
     // Maximize vertically
     {  MOD ,              XK_m,                     maxvert_hor,         {.i=TWOBWM_MAXIMIZE_VERTICALLY}},
 
@@ -231,15 +240,15 @@ static key keys[] = {
     {  MOD ,              XK_r,                     raiseorlower,        {}},
 
     // Next/Previous workspace
-    {  MOD ,              XK_v,                     nextworkspace,       {}},
-    {  MOD ,              XK_c,                     prevworkspace,       {}},
+    {  MOD ,              XK_Tab,                     nextworkspace,       {}},
+    {  MOD |SHIFT ,       XK_Tab,                     prevworkspace,       {}},
 
     // Move to Next/Previous workspace
-    {  MOD |SHIFT ,       XK_v,                     sendtonextworkspace, {}},
-    {  MOD |SHIFT ,       XK_c,                     sendtoprevworkspace, {}},
+    {  MOD |SHIFT ,       XK_Tab,                     sendtonextworkspace, {}},
+    {  MOD |SHIFT ,       XK_Tab,                     sendtoprevworkspace, {}},
 
     // Iconify the window
-    {  MOD ,              XK_w,                     hide,                {}},
+    {  MOD ,              XK_i,                     hide,                {}},
 
     // Make the window unkillable
     {  MOD ,              XK_a,                     unkillable,          {}},
@@ -264,11 +273,12 @@ static key keys[] = {
 
     // Start programs
     {  MOD ,              XK_d,                     start,               {.com = menucmd}},
-    {  MOD ,              XK_Tab,                   start,               {.com = windowcmd}},
+    {  MOD ,              XK_w,                     start,               {.com = window_list}},
 	{  MOD ,			  XK_Return,	            start,			     {.com = terminalcmd}},
 	{  MOD ,			  XK_BackSpace,	            start,			     {.com = lockcmd}},
 	{  MOD |SHIFT ,		  XK_e,		 	            start,			     {.com = rangercmd}},
 	{  MOD ,			  XK_apostrophe,            start,			     {.com = gotopcmd}},
+	{  MOD ,			  XK_semicolon,             start,			     {.com = randbgcmd}},
 
 	// Volume
 	{  0 ,				  XF86XK_AudioMute,		   start,	             {.com = volumeToggle}},
@@ -276,15 +286,17 @@ static key keys[] = {
 	{  0 ,				  XF86XK_AudioLowerVolume, start,	             {.com = volumeDecrease}},
 
 	// Media Controls
-	{  0 ,				  XF86XK_AudioPrev,	       start,                com = previousMedia}},
-	{  0 ,				  XF86XK_AudioPlay,		   start,                com = playMedia}},
-	{  0 ,				  XF86XK_AudioNext,		   start,                com = nextMedia}},
+	{  0 ,				  XF86XK_AudioPrev,	       start,                {.com = previousMedia}},
+	{  0 ,				  XF86XK_AudioPlay,		   start,                {.com = playMedia}},
+	{  0 ,				  XF86XK_AudioNext,		   start,                {.com = nextMedia}},
+
+	{  0 ,				  XF86XK_MonBrightnessUp,  start,	             {.com = brightnessUp}},
+	{  0 ,				  XF86XK_MonBrightnessDown,start,	             {.com = brightnessDown}},
 
     // Exit or restart 2bwm
-    {  MOD |CONTROL,      XK_e,                    wobwm_exit,           {.i=0}},
-    {  MOD |CONTROL,      XK_r,                    wobwm_restart,        {.i=0}},
-    {  MOD ,              XK_space,                alfandcentered,       {.i=0}},
-    {  MOD ,              XK_s,                    oggle_sloppy,         {.com = sloppy_switch_cmd}},
+    {  MOD |CONTROL,      XK_e,                    twobwm_exit,           {.i=0}},
+    {  MOD |CONTROL,      XK_r,                    twobwm_restart,        {.i=0}},
+    {  MOD ,              XK_space,                halfandcentered,       {.i=0}},
 
     // Change current workspace
        DESKTOPCHANGE(     XK_1,                             0)
